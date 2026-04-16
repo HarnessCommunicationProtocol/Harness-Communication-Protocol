@@ -1,7 +1,7 @@
 remote_theme: just-the-docs/just-the-docs@v0.10.1
 
-title: "HCP: Harness Communication Protocol"
-description: "An open protocol for secure communication between AI agent harnesses"
+title: "HCP"
+description: "Harness Communication Protocol"
 
 url: ""
 baseurl: "/Harness-Communication-Protocol"
