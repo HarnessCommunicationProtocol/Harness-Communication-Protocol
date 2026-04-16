@@ -32,30 +32,18 @@ nav_order: 2
 
 ## Layer Responsibilities
 
-### L1: Transport & Encoding Layer
+### L4: Task Layer
 
-The foundation layer. Defines:
+The application layer. Defines:
 
-- **Message Envelope**: Standard wrapper for all HCP messages (version, message ID, timestamp, session ID, message type, payload)
-- **Channel Specification**: Two logical channels — a **command channel** (caller → callee) and an **event channel** (callee → caller), mapped to AMQP exchanges and queues
-- **AMQP Topology**: Standard exchange/queue/routing-key conventions that all implementations follow
+- **Task Submission**: How the caller describes intent, provides inputs, declares constraints, and specifies expected output format
+- **Task Result**: How the callee returns final results, artifacts, and execution summaries
+- **Task Rejection**: How the callee communicates why a task cannot be accepted
+- **Error Reporting**: How execution failures are communicated with actionable detail
 
-L1 is concerned with *how messages are encoded and delivered*, not with their semantic meaning. HCP standardizes on AMQP 0-9-1 as its transport protocol.
+L4 is concerned with *what to do and what happened*, not with how it's delivered or whether it's safe.
 
-See [L1-transport-encoding.md](./L1-transport-encoding.md)
-
-### L2: Session & Lifecycle Layer
-
-The state management layer. Defines:
-
-- **Session State Machine**: The lifecycle states of a task session (PENDING → RUNNING → COMPLETED/FAILED/ABORTED) and valid transitions
-- **Event Stream Protocol**: Standard event types for progress reporting, intermediate results, warnings, checkpoints, and errors
-- **Checkpoint & Recovery**: How sessions can be paused, checkpointed, and resumed after interruption
-- **Session Timeout & Cleanup**: Idle detection and resource reclamation
-
-L2 is concerned with *session lifecycle and execution visibility*, not with what the task is or whether it's safe to execute.
-
-See [L2-session-lifecycle.md](./L2-session-lifecycle.md)
+See [L4-task.md](./L4-task.md)
 
 ### L3: Safety & Contract Layer
 
@@ -72,18 +60,30 @@ L3 is the **mandatory gate** between task submission and execution. No task proc
 
 See [L3-safety-contract.md](./L3-safety-contract.md)
 
-### L4: Task Layer
+### L2: Session & Lifecycle Layer
 
-The application layer. Defines:
+The state management layer. Defines:
 
-- **Task Submission**: How the caller describes intent, provides inputs, declares constraints, and specifies expected output format
-- **Task Result**: How the callee returns final results, artifacts, and execution summaries
-- **Task Rejection**: How the callee communicates why a task cannot be accepted
-- **Error Reporting**: How execution failures are communicated with actionable detail
+- **Session State Machine**: The lifecycle states of a task session (PENDING → RUNNING → COMPLETED/FAILED/ABORTED) and valid transitions
+- **Event Stream Protocol**: Standard event types for progress reporting, intermediate results, warnings, checkpoints, and errors
+- **Checkpoint & Recovery**: How sessions can be paused, checkpointed, and resumed after interruption
+- **Session Timeout & Cleanup**: Idle detection and resource reclamation
 
-L4 is concerned with *what to do and what happened*, not with how it's delivered or whether it's safe.
+L2 is concerned with *session lifecycle and execution visibility*, not with what the task is or whether it's safe to execute.
 
-See [L4-task.md](./L4-task.md)
+See [L2-session-lifecycle.md](./L2-session-lifecycle.md)
+
+### L1: Transport & Encoding Layer
+
+The foundation layer. Defines:
+
+- **Message Envelope**: Standard wrapper for all HCP messages (version, message ID, timestamp, session ID, message type, payload)
+- **Channel Specification**: Two logical channels — a **command channel** (caller → callee) and an **event channel** (callee → caller), mapped to AMQP exchanges and queues
+- **AMQP Topology**: Standard exchange/queue/routing-key conventions that all implementations follow
+
+L1 is concerned with *how messages are encoded and delivered*, not with their semantic meaning. HCP standardizes on AMQP 0-9-1 as its transport protocol.
+
+See [L1-transport-encoding.md](./L1-transport-encoding.md)
 
 ## End-to-End Flow
 
