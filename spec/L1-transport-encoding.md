@@ -2,7 +2,7 @@
 layout: default
 title: "L1: Transport & Encoding"
 parent: English
-nav_order: 3
+nav_order: 6
 ---
 
 [English](L1-transport-encoding) | [中文](zh/L1-transport-encoding)

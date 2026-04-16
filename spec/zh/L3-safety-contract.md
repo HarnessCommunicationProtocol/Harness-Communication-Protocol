@@ -2,7 +2,7 @@
 layout: default
 title: "L3: 安全契约"
 parent: 中文
-nav_order: 5
+nav_order: 4
 ---
 
 [English](../L3-safety-contract) | **中文**

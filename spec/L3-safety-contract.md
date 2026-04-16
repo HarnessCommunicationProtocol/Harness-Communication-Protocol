@@ -2,7 +2,7 @@
 layout: default
 title: "L3: Safety & Contract"
 parent: English
-nav_order: 5
+nav_order: 4
 ---
 
 [English](L3-safety-contract) | [中文](zh/L3-safety-contract)

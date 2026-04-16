@@ -2,7 +2,7 @@
 layout: default
 title: "L4: Task"
 parent: English
-nav_order: 6
+nav_order: 3
 ---
 
 [English](L4-task) | [中文](zh/L4-task)
