@@ -2,7 +2,7 @@
 layout: default
 title: "L1: 传输与编码"
 parent: 中文
-nav_order: 3
+nav_order: 6
 ---
 
 [English](../L1-transport-encoding) | **中文**

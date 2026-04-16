@@ -2,7 +2,7 @@
 layout: default
 title: "L2: Session & Lifecycle"
 parent: English
-nav_order: 4
+nav_order: 5
 ---
 
 [English](L2-session-lifecycle) | [中文](zh/L2-session-lifecycle)
