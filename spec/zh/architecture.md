@@ -32,30 +32,18 @@ nav_order: 2
 
 ## 各层职责
 
-### L1: 传输与编码层 (Transport & Encoding Layer)
+### L4: 任务层 (Task Layer)
 
-基础层。定义：
+应用层。定义：
 
-- **消息信封 (Message Envelope)**：所有 HCP 消息的标准包装器（版本、消息 ID、时间戳、会话 ID、消息类型、载荷）
-- **通道规范 (Channel Specification)**：两个逻辑通道 — **命令通道** (调用方 → 被调用方) 和 **事件通道** (被调用方 → 调用方)，映射到 AMQP exchange 和 queue
-- **AMQP 拓扑 (AMQP Topology)**：所有实现遵循的标准 exchange/queue/routing-key 约定
+- **任务提交 (Task Submission)**：调用方如何描述意图、提供输入、声明约束以及指定预期输出格式
+- **任务结果 (Task Result)**：被调用方如何返回最终结果、产物和执行摘要
+- **任务拒绝 (Task Rejection)**：被调用方如何告知任务无法被接受的原因
+- **错误报告 (Error Reporting)**：执行失败如何以可操作的详细信息进行通报
 
-L1 关注的是*消息如何编码和投递*，而非其语义含义。HCP 将 AMQP 0-9-1 标准化为其传输协议。
+L4 关注的是*要做什么以及发生了什么*，而非如何投递或是否安全。
 
-详见 [L1-transport-encoding.md](./L1-transport-encoding.md)
-
-### L2: 会话与生命周期层 (Session & Lifecycle Layer)
-
-状态管理层。定义：
-
-- **会话状态机 (Session State Machine)**：任务会话的生命周期状态 (PENDING → RUNNING → COMPLETED/FAILED/ABORTED) 及有效转换
-- **事件流协议 (Event Stream Protocol)**：用于进度报告、中间结果、警告、检查点和错误的标准事件类型
-- **检查点与恢复 (Checkpoint & Recovery)**：会话如何暂停、建立检查点以及在中断后恢复
-- **会话超时与清理 (Session Timeout & Cleanup)**：空闲检测和资源回收
-
-L2 关注的是*会话生命周期和执行可见性*，而非任务内容或执行是否安全。
-
-详见 [L2-session-lifecycle.md](./L2-session-lifecycle.md)
+详见 [L4-task.md](./L4-task.md)
 
 ### L3: 安全与契约层 (Safety & Contract Layer)
 
@@ -72,18 +60,30 @@ L3 是任务提交和执行之间的**强制门控**。没有 L3 的批准，任
 
 详见 [L3-safety-contract.md](./L3-safety-contract.md)
 
-### L4: 任务层 (Task Layer)
+### L2: 会话与生命周期层 (Session & Lifecycle Layer)
 
-应用层。定义：
+状态管理层。定义：
 
-- **任务提交 (Task Submission)**：调用方如何描述意图、提供输入、声明约束以及指定预期输出格式
-- **任务结果 (Task Result)**：被调用方如何返回最终结果、产物和执行摘要
-- **任务拒绝 (Task Rejection)**：被调用方如何告知任务无法被接受的原因
-- **错误报告 (Error Reporting)**：执行失败如何以可操作的详细信息进行通报
+- **会话状态机 (Session State Machine)**：任务会话的生命周期状态 (PENDING → RUNNING → COMPLETED/FAILED/ABORTED) 及有效转换
+- **事件流协议 (Event Stream Protocol)**：用于进度报告、中间结果、警告、检查点和错误的标准事件类型
+- **检查点与恢复 (Checkpoint & Recovery)**：会话如何暂停、建立检查点以及在中断后恢复
+- **会话超时与清理 (Session Timeout & Cleanup)**：空闲检测和资源回收
 
-L4 关注的是*要做什么以及发生了什么*，而非如何投递或是否安全。
+L2 关注的是*会话生命周期和执行可见性*，而非任务内容或执行是否安全。
 
-详见 [L4-task.md](./L4-task.md)
+详见 [L2-session-lifecycle.md](./L2-session-lifecycle.md)
+
+### L1: 传输与编码层 (Transport & Encoding Layer)
+
+基础层。定义：
+
+- **消息信封 (Message Envelope)**：所有 HCP 消息的标准包装器（版本、消息 ID、时间戳、会话 ID、消息类型、载荷）
+- **通道规范 (Channel Specification)**：两个逻辑通道 — **命令通道** (调用方 → 被调用方) 和 **事件通道** (被调用方 → 调用方)，映射到 AMQP exchange 和 queue
+- **AMQP 拓扑 (AMQP Topology)**：所有实现遵循的标准 exchange/queue/routing-key 约定
+
+L1 关注的是*消息如何编码和投递*，而非其语义含义。HCP 将 AMQP 0-9-1 标准化为其传输协议。
+
+详见 [L1-transport-encoding.md](./L1-transport-encoding.md)
 
 ## 端到端流程
 
